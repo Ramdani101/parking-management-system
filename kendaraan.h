@@ -15,7 +15,7 @@ class Kendaraan{
     string getPemilik() const;
     string getJenisKendaraan() const;
     string getWaktuMasuk() const;
-
+    
 
 };
 

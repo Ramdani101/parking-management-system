@@ -61,59 +61,6 @@ void PetugasRole::hapusKendaraan(string plat) {
         cout << "Data tidak ditemukan" << endl;
         displayMenuPetugas();
     }
-    // //Cek jika data yang ingin dihapus ada di head
-    // if(head!=nullptr && head->kendaraan.getPlatNomor() == plat) {
-    //     hapus = head;
-    //     head = head->next;
-    //     //dicek jika seandainya node baru 1 berarti head->next itu nullptr
-    //     //maka head->prev harus di set menjadi nullptr
-    //     if (head != nullptr) {
-    //         head->prev = nullptr;
-    //     } else {
-    //         tail = nullptr; // Jika head menjadi nullptr, tail juga harus nullptr
-    //     }
-    // //Cek jika data yang ingin dihapus ada di tail
-    // } else if(tail!=nullptr && tail->kendaraan.getPlatNomor() == plat) {
-    //     hapus = tail;
-    //     tail = tail->prev;
-    //     if (tail != nullptr) {
-    //         tail->next = nullptr;
-    //     } else {
-    //         head = nullptr; // Jika tail menjadi nullptr, head juga harus nullptr
-    //     }
-    // } else {
-    //     NodeParkir* bantu = head;
-    //     while(bantu != nullptr) {
-    //         if(bantu->kendaraan.getPlatNomor() == plat) {
-    //             hapus = bantu;
-    //             if (bantu->prev != nullptr) {
-    //                 bantu->prev->next = bantu->next;
-    //             }
-    //             if (bantu->next != nullptr) {
-    //                 bantu->next->prev = bantu->prev;
-    //             }
-    //             break;
-    //         }
-    //         bantu = bantu->next;
-    //     }
-    // }
-    // //dicek apakah pointer hapus masih menunjuk nullptr atau tidak
-    // // jika masih menunjuk nullptr maka data tidak ditemukan
-    // if(hapus != nullptr) {
-    //     NodeParkir* historyNode = new NodeParkir(hapus->kendaraan);
-    //     if(historyHead == nullptr) {
-    //         historyHead = historyNode;
-    //         historyTail = historyNode;
-    //     } else {
-    //         historyHead->prev = historyNode;
-    //         historyNode->next = historyHead;
-    //         historyHead = historyNode;
-    //     }
-    //     delete hapus;
-    //     cout << "Data berhasil dihapus" << endl;
-    // }else{
-    //     cout << "Data tidak ditemukan" << endl;
-    // }
 }
 
 void PetugasRole::lihatKendaraan() const {
@@ -143,12 +90,12 @@ void PetugasRole::lihatKendaraan() const {
     string input;
     fungsiUmum.clearscreen();
     do{
-        cout <<"---------------------" << endl;
-        cout <<"| Plat       : " << nodes[index]->kendaraan.getPlatNomor() << endl;
-        cout <<"| Merek      : " << nodes[index]->kendaraan.getPemilik() <<  endl;
-        cout <<"| Tahun      : " << nodes[index]->kendaraan.getJenisKendaraan() << endl;
-        cout <<"| Waktu Masuk: " << nodes[index]->kendaraan.getWaktuMasuk() << endl;
-        cout <<"---------------------" << endl;
+        cout <<"--------------------------" << endl;
+        cout <<"| Plat                  : " << nodes[index]->kendaraan.getPlatNomor() << endl;
+        cout <<"| Pemilik               : " << nodes[index]->kendaraan.getPemilik() <<  endl;
+        cout <<"| Jenis Kendaraan       : " << nodes[index]->kendaraan.getJenisKendaraan() << endl;
+        cout <<"| Waktu Masuk           : " << nodes[index]->kendaraan.getWaktuMasuk() << endl;
+        cout <<"--------------------------" << endl;
         cout << endl;
         cout << "1. Previous" << endl;
         cout << "2. Next" << endl;
@@ -182,7 +129,7 @@ void PetugasRole::liatHistori(){
 void PetugasRole::displayMenuPetugas() {
     string input;
     do {
-        fungsiUmum.clearscreen();
+        //fungsiUmum.clearscreen();
         cout << "==========================" << endl;
         cout << "--- DASHBOARD  PETUGAS ---" << endl;
         cout << "==========================" << endl;
@@ -209,19 +156,20 @@ void PetugasRole::displayMenuPetugas() {
             displayMenuPetugas();
         } else if(input == "2") {
             lihatKendaraan();
-            fungsiUmum.clearscreen();
+            //fungsiUmum.clearscreen();
         } else if(input == "3") {
             string plat;
             cout << "Masukkan plat nomor : ";
             cin >> plat;
             hapusKendaraan(plat);
+            fungsiUmum.clearscreen();
         } else if(input == "4") {
             kelolaAntrean();
             displayMenuPetugas();
         } else if(input == "5") {
             liatHistori();
             displayMenuPetugas();
-        } else if(input != "6") {
+        } else if(input != "6"){
             cout << "Input tidak valid" << endl;
             displayMenuPetugas();
         }
