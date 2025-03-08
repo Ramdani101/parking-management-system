@@ -25,6 +25,8 @@ void PetugasRole::tambahKendaraan(Kendaraan kendaraan) {
         tail->next = nodeBaru;
         nodeBaru->prev = tail;
         tail = nodeBaru;
+        tail->next = head;
+        head->prev = tail;
     }
     fungsiUmum.clearscreen();
     cout << "Data berhasil ditambahkan" << endl;
@@ -66,54 +68,81 @@ void PetugasRole::hapusKendaraan(string plat) {
 void PetugasRole::lihatKendaraan() const {
     int totalKendaraan = 0;
     NodeParkir* bantu = head;
-    //hitung total kendaraan
-    while(bantu!=nullptr){
-        bantu = bantu->next;
-        totalKendaraan++;
-    }
-
-    if(totalKendaraan == 0){
-        fungsiUmum.clearscreen();
-        cout << "Tidak ada kendaraan yang parkir" << endl;
-        return;
-    }
-
-    //buat array untuk navigasi
-    NodeParkir** nodes = new NodeParkir*[totalKendaraan];
-    bantu = head;
-    for(int i = 0; i < totalKendaraan; i++){
-        nodes[i] = bantu;
-        bantu = bantu->next;
-    }
-
-    int index = 0;
     string input;
-    fungsiUmum.clearscreen();
     do{
-        cout <<"--------------------------" << endl;
-        cout <<"| Plat                  : " << nodes[index]->kendaraan.getPlatNomor() << endl;
-        cout <<"| Pemilik               : " << nodes[index]->kendaraan.getPemilik() <<  endl;
-        cout <<"| Jenis Kendaraan       : " << nodes[index]->kendaraan.getJenisKendaraan() << endl;
-        cout <<"| Waktu Masuk           : " << nodes[index]->kendaraan.getWaktuMasuk() << endl;
-        cout <<"--------------------------" << endl;
-        cout << endl;
-        cout << "1. Previous" << endl;
-        cout << "2. Next" << endl;
-        cout << "3. Kembali" << endl;
-        cout << "Pilih : ";
-        cin >> input;
-        if(input == "1" && index > 0){
-            index--;
-            fungsiUmum.clearscreen();
-        }else if(input == "2" && index < totalKendaraan - 1){
-            index++;
-            fungsiUmum.clearscreen();
-        }else if(input != "3"){
-            fungsiUmum.clearscreen();
-            cout << "Input tidak valid atau sudah mencapai batas" << endl;
-        }
-    }while(input != "3");
-    delete[] nodes;
+            cout <<"--------------------------" << endl;
+            cout <<"| Plat                  : " << bantu->kendaraan.getPlatNomor()<< endl;
+            cout <<"| Pemilik               : " << bantu->kendaraan.getPemilik() <<  endl;
+            cout <<"| Jenis Kendaraan       : " << bantu->kendaraan.getJenisKendaraan() << endl;
+            cout <<"| Waktu Masuk           : " << bantu->kendaraan.getWaktuMasuk() << endl;
+            cout <<"--------------------------" << endl;
+            cout << endl;
+            cout << "1. Previous" << endl;
+            cout << "2. Next" << endl;
+            cout << "3. Kembali" << endl;
+            cout << "Pilih : ";
+            cin >> input;
+            if(input == "1"){
+                bantu = bantu->prev;
+                fungsiUmum.clearscreen();
+            }else if(input == "2"){
+                bantu = bantu->next;
+                fungsiUmum.clearscreen();
+            }else if(input != "3"){
+                fungsiUmum.clearscreen();
+                cout << "Input tidak valid" << endl;
+            }
+        }while(input != "3");
+
+
+    //hitung total kendaraan
+    // while(bantu!=nullptr){
+    //     bantu = bantu->next;
+    //     totalKendaraan++;
+    // }
+
+    // if(totalKendaraan == 0){
+    //     fungsiUmum.clearscreen();
+    //     cout << "Tidak ada kendaraan yang parkir" << endl;
+    //     return;
+    // }
+
+    // //buat array untuk navigasi
+    // NodeParkir** nodes = new NodeParkir*[totalKendaraan];
+    // bantu = head;
+    // for(int i = 0; i < totalKendaraan; i++){
+    //     nodes[i] = bantu;
+    //     bantu = bantu->next;
+    // }
+
+    // int index = 0;
+    // string input;
+    // fungsiUmum.clearscreen();
+    // do{
+    //     cout <<"--------------------------" << endl;
+    //     cout <<"| Plat                  : " << nodes[index]->kendaraan.getPlatNomor() << endl;
+    //     cout <<"| Pemilik               : " << nodes[index]->kendaraan.getPemilik() <<  endl;
+    //     cout <<"| Jenis Kendaraan       : " << nodes[index]->kendaraan.getJenisKendaraan() << endl;
+    //     cout <<"| Waktu Masuk           : " << nodes[index]->kendaraan.getWaktuMasuk() << endl;
+    //     cout <<"--------------------------" << endl;
+    //     cout << endl;
+    //     cout << "1. Previous" << endl;
+    //     cout << "2. Next" << endl;
+    //     cout << "3. Kembali" << endl;
+    //     cout << "Pilih : ";
+    //     cin >> input;
+    //     if(input == "1" && index > 0){
+    //         index--;
+    //         fungsiUmum.clearscreen();
+    //     }else if(input == "2" && index < totalKendaraan - 1){
+    //         index++;
+    //         fungsiUmum.clearscreen();
+    //     }else if(input != "3"){
+    //         fungsiUmum.clearscreen();
+    //         cout << "Input tidak valid atau sudah mencapai batas" << endl;
+    //     }
+    // }while(input != "3");
+    // delete[] nodes;
 }
 
 void PetugasRole::kelolaAntrean(){
