@@ -2,6 +2,8 @@
 #include "fungsiumum.h"
 using namespace std;
 
+FungsiUmum fungsiUmum;
+
 FungsiUmum::FungsiUmum() {}
 
 void FungsiUmum::clearscreen() {

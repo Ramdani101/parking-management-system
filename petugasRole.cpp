@@ -3,8 +3,6 @@
 #include "fungsiumum.h"
 using namespace std;
 
-FungsiUmum fungsiUmum;
-
 //Constructor
 PetugasRole::PetugasRole() : head(nullptr), tail(nullptr) {}
 //Destructor
@@ -16,20 +14,130 @@ PetugasRole::~PetugasRole() {
     }
 }
 
+int PetugasRole::getJumlahMobil() const {
+    return jumlahMobil;
+}
+
+int PetugasRole::getJumlahMotor() const {
+    return jumlahMotor;
+}
+
+int PetugasRole::getJumlahSepeda() const {
+    return jumlahSepeda;
+}
+
+void PetugasRole::setJumlahMobil(int jumlah) {
+    jumlahMobil = jumlah;
+}
+
+void PetugasRole::setJumlahMotor(int jumlah) {
+    jumlahMotor = jumlah;
+}
+
+void PetugasRole::setJumlahSepeda(int jumlah) {
+    jumlahSepeda = jumlah;
+}
+
 void PetugasRole::tambahKendaraan(Kendaraan kendaraan) {
     NodeParkir* nodeBaru = new NodeParkir(kendaraan);
-    if(head == nullptr) {
-        head = nodeBaru;
-        tail = nodeBaru;
-    } else {
-        tail->next = nodeBaru;
-        nodeBaru->prev = tail;
-        tail = nodeBaru;
-        tail->next = head;
-        head->prev = tail;
+    if(kendaraan.getJenisKendaraan() == "Mobil") {
+        if (getJumlahMobil() <= 5)
+        {
+            if(head == nullptr) {
+                head = nodeBaru;
+                tail = nodeBaru;
+            } else {
+                tail->next = nodeBaru;
+                nodeBaru->prev = tail;
+                tail = nodeBaru;
+                tail->next = head;
+                head->prev = tail;
+            }
+            fungsiUmum.clearscreen();
+            cout << "Data berhasil ditambahkan" << endl;
+            setJumlahMobil(getJumlahMobil() + 1);
+        }
+    }else{
+        cout << "Parkiran sedang penuh, data kendaraan akan masuk kedalam daftar antrian \n" <<
+        "Antrian akan diproses ketika parkiran kosong" << endl;
+        if(antrianHead == nullptr) {
+            antrianHead= nodeBaru;
+            antrianTail = nodeBaru;
+        } else {
+            antrianTail->next = nodeBaru;
+            nodeBaru->prev = antrianTail;
+            antrianTail = nodeBaru;
+            antrianTail->next = antrianHead;
+            antrianHead->prev = antrianTail;
+        }
+        fungsiUmum.clearscreen();
     }
-    fungsiUmum.clearscreen();
-    cout << "Data berhasil ditambahkan" << endl;
+
+    if(kendaraan.getJenisKendaraan() == "Motor") {
+        if (getJumlahMotor() <= 30)
+        {
+            if(head == nullptr) {
+                head = nodeBaru;
+                tail = nodeBaru;
+            } else {
+                tail->next = nodeBaru;
+                nodeBaru->prev = tail;
+                tail = nodeBaru;
+                tail->next = head;
+                head->prev = tail;
+            }
+            fungsiUmum.clearscreen();
+            cout << "Data berhasil ditambahkan" << endl;
+            setJumlahMotor(getJumlahMotor() + 1);
+        }
+    }else{
+        cout << "Parkiran sedang penuh, data kendaraan akan masuk kedalam daftar antrian \n" <<
+        "Antrian akan diproses ketika parkiran kosong" << endl;
+        if(antrianHead == nullptr) {
+            antrianHead= nodeBaru;
+            antrianTail = nodeBaru;
+        } else {
+            antrianTail->next = nodeBaru;
+            nodeBaru->prev = antrianTail;
+            antrianTail = nodeBaru;
+            antrianTail->next = antrianHead;
+            antrianHead->prev = antrianTail;
+        }
+        fungsiUmum.clearscreen();
+    }
+
+    if(kendaraan.getJenisKendaraan() == "Sepeda") {
+        if (getJumlahSepeda() <= 10)
+        {
+            if(head == nullptr) {
+                head = nodeBaru;
+                tail = nodeBaru;
+            } else {
+                tail->next = nodeBaru;
+                nodeBaru->prev = tail;
+                tail = nodeBaru;
+                tail->next = head;
+                head->prev = tail;
+            }
+            fungsiUmum.clearscreen();
+            cout << "Data berhasil ditambahkan" << endl;
+            setJumlahSepeda(getJumlahSepeda() + 1);
+        }
+    }else{
+        cout << "Parkiran sedang penuh, data kendaraan akan masuk kedalam daftar antrian \n" <<
+        "Antrian akan diproses ketika parkiran kosng" << endl;
+        if(antrianHead == nullptr) {
+            antrianHead= nodeBaru;
+            antrianTail = nodeBaru;
+        } else {
+            antrianTail->next = nodeBaru;
+            nodeBaru->prev = antrianTail;
+            antrianTail = nodeBaru;
+            antrianTail->next = antrianHead;
+            antrianHead->prev = antrianTail;
+        }
+        fungsiUmum.clearscreen();
+    }    
 }
 
 void PetugasRole::hapusKendaraan(string plat) {
@@ -49,6 +157,39 @@ void PetugasRole::hapusKendaraan(string plat) {
                     bantu->next->prev = bantu->prev;
                 }else{
                     tail = bantu->prev;
+                }
+                break;
+            }
+            bantu = bantu->next;
+        }
+       delete hapus;
+       fungsiUmum.clearscreen();
+       cout<< "Data berhasil dihapus" << endl;
+       displayMenuPetugas();
+    }else{
+        fungsiUmum.clearscreen();
+        cout << "Data tidak ditemukan" << endl;
+        displayMenuPetugas();
+    }
+}
+
+void PetugasRole::hapusKendaraanAntrian(string plat) {
+    NodeParkir* hapus = nullptr;
+    
+    if(antrianHead != nullptr){
+        NodeParkir* bantu = antrianHead;
+        while(bantu != nullptr){
+            if(bantu->kendaraan.getPlatNomor() == plat){
+                hapus = bantu;
+                if(bantu->prev != nullptr){
+                    bantu->prev->next = bantu->next;
+                }else{
+                    antrianHead = bantu->next;
+                }
+                if(bantu->next != nullptr){
+                    bantu->next->prev = bantu->prev;
+                }else{
+                    antrianTail = bantu->prev;
                 }
                 break;
             }
@@ -93,61 +234,44 @@ void PetugasRole::lihatKendaraan() const {
                 cout << "Input tidak valid" << endl;
             }
         }while(input != "3");
-
-
-    //hitung total kendaraan
-    // while(bantu!=nullptr){
-    //     bantu = bantu->next;
-    //     totalKendaraan++;
-    // }
-
-    // if(totalKendaraan == 0){
-    //     fungsiUmum.clearscreen();
-    //     cout << "Tidak ada kendaraan yang parkir" << endl;
-    //     return;
-    // }
-
-    // //buat array untuk navigasi
-    // NodeParkir** nodes = new NodeParkir*[totalKendaraan];
-    // bantu = head;
-    // for(int i = 0; i < totalKendaraan; i++){
-    //     nodes[i] = bantu;
-    //     bantu = bantu->next;
-    // }
-
-    // int index = 0;
-    // string input;
-    // fungsiUmum.clearscreen();
-    // do{
-    //     cout <<"--------------------------" << endl;
-    //     cout <<"| Plat                  : " << nodes[index]->kendaraan.getPlatNomor() << endl;
-    //     cout <<"| Pemilik               : " << nodes[index]->kendaraan.getPemilik() <<  endl;
-    //     cout <<"| Jenis Kendaraan       : " << nodes[index]->kendaraan.getJenisKendaraan() << endl;
-    //     cout <<"| Waktu Masuk           : " << nodes[index]->kendaraan.getWaktuMasuk() << endl;
-    //     cout <<"--------------------------" << endl;
-    //     cout << endl;
-    //     cout << "1. Previous" << endl;
-    //     cout << "2. Next" << endl;
-    //     cout << "3. Kembali" << endl;
-    //     cout << "Pilih : ";
-    //     cin >> input;
-    //     if(input == "1" && index > 0){
-    //         index--;
-    //         fungsiUmum.clearscreen();
-    //     }else if(input == "2" && index < totalKendaraan - 1){
-    //         index++;
-    //         fungsiUmum.clearscreen();
-    //     }else if(input != "3"){
-    //         fungsiUmum.clearscreen();
-    //         cout << "Input tidak valid atau sudah mencapai batas" << endl;
-    //     }
-    // }while(input != "3");
-    // delete[] nodes;
 }
 
 void PetugasRole::kelolaAntrean(){
-    fungsiUmum.clearscreen();
-    cout << "Masih dalam tahap pengembangan \n";
+    string input;
+    cout << "================================" << endl;
+    cout << "--- DAFTAR ANTRIAN PEMESANAN ---" << endl;
+    cout << "================================" << endl;
+    NodeParkir* bantu = antrianHead;
+    do{
+        int i = 1;
+        do{
+            cout << i << "| Plat : " << bantu->kendaraan.getPlatNomor() << "| Pemilik : " << bantu->kendaraan.getPemilik() << "| Jenis : " << bantu->kendaraan.getJenisKendaraan() << endl;
+            bantu = bantu->next;
+            i++; 
+        }while(bantu != antrianHead);
+    cout << "================================" << endl;
+    cout << "1. Masukkan kendaraan" << endl;
+    cout << "2. Hapus antrian" << endl;
+    cout << "3. Kembali" << endl;
+    cout << "Pilih : ";
+    cin >> input;
+    if(input == "1"){
+        tambahKendaraan(bantu->kendaraan);
+        NodeParkir* hapus = bantu;
+        bantu = bantu->next;
+        hapus->prev->next = bantu;
+        bantu->prev = hapus->prev;
+        delete hapus;
+        fungsiUmum.clearscreen();
+    }else if(input == "2"){
+        cout << "Masukkan plat nomor : ";
+        string plat;
+        cin >> plat;
+        hapusKendaraanAntrian(plat);
+    }else if(input != "3"){
+        cout << "Input tidak valid" << endl;
+    }
+    }while(input != "3");
 }
 
 void PetugasRole::liatHistori(){

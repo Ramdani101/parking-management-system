@@ -10,4 +10,6 @@ class FungsiUmum{
     void clearscreen();
 };
 
+extern FungsiUmum fungsiUmum;
+
 #endif

@@ -1,6 +1,7 @@
 #include "kendaraan.h"
 #include <iostream>
 
+
 Kendaraan::Kendaraan(string plat, string pemilik, string jenis, string waktu):
     platNomor(plat), pemilik(pemilik), jenisKendaraan(jenis), waktuMasuk(waktu) {}
 

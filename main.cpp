@@ -4,6 +4,7 @@
 #include "nodeParkir.h"
 #include "kendaraan.h"
 #include "fungsiumum.h"
+#include "mahasiswaRole.h"
 using namespace std;
 
 void displayMainMenu(){
@@ -18,6 +19,7 @@ void displayMainMenu(){
 
 int main(){
     PetugasRole pr;
+    MahasiswaRole mr(&pr);
     FungsiUmum fungsiUmum;
     int pilihan;
     string plat,pemilik,jenis,waktu;
@@ -30,8 +32,7 @@ int main(){
             pr.displayMenuPetugas();
         }else if(pilihan == 2){
             fungsiUmum.clearscreen();
-            cout << "Masih dalam tahap pengembangan" << endl;
-            displayMainMenu();
+            mr.displayMenuMahasiswa();
         }else if(pilihan != 3){
             fungsiUmum.clearscreen();
             cout << "Input tidak valid" << endl;
