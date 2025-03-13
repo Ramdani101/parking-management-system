@@ -30,11 +30,12 @@ int main(){
         if(pilihan == 1){
             fungsiUmum.clearscreen();
             pr.displayMenuPetugas();
+            fungsiUmum.clearscreen();
         }else if(pilihan == 2){
             fungsiUmum.clearscreen();
             mr.displayMenuMahasiswa();
-        }else if(pilihan != 3){
             fungsiUmum.clearscreen();
+        }else if(pilihan != 3){
             cout << "Input tidak valid" << endl;
             displayMainMenu();
         }

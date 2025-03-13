@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 catatan.txt
+CMakeLists.txt
+*.idea
+cmake-build-debug
 
 # Compiled Object files
 *.slo
@@ -32,3 +35,4 @@ catatan.txt
 *.out
 *.app
 *.vscode
+*.cmake

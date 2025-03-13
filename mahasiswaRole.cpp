@@ -19,18 +19,16 @@ void MahasiswaRole::pesanTempat(){
     cin >> waktu;
     Kendaraan kendaraan(plat,pemilik,jenis,waktu);
     petugas->tambahKendaraan(kendaraan);
-    
 }
 
 void MahasiswaRole::lihatHistoriMahasiswa(){
+    fungsiUmum.clearscreen();
     cout << "Sedang tahap Pengembangan" << endl;
-    displayMenuMahasiswa();
 }
 
 void MahasiswaRole::displayMenuMahasiswa(){
     string input;
     do {
-        fungsiUmum.clearscreen();
         cout << "======================" << endl;
         cout << "--- SELAMAT DATANG ---" << endl;
         cout << "======================" << endl;
@@ -41,13 +39,12 @@ void MahasiswaRole::displayMenuMahasiswa(){
         cin >> input;
         if(input == "1") {
             pesanTempat();
-            displayMenuMahasiswa();
+            //displayMenuMahasiswa();
         } else if(input == "2") {
             lihatHistoriMahasiswa();
-            //fungsiUmum.clearscreen();
         } else if(input != "3"){
             cout << "Input tidak valid" << endl;
-            displayMenuMahasiswa();
+            //displayMenuMahasiswa();
         }
     } while(input != "3");
 }
