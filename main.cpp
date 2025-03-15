@@ -36,6 +36,7 @@ int main(){
             mr.displayMenuMahasiswa();
             fungsiUmum.clearscreen();
         }else if(pilihan != 3){
+            fungsiUmum.clearscreen();
             cout << "Input tidak valid" << endl;
             displayMainMenu();
         }

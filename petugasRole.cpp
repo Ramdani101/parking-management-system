@@ -340,74 +340,134 @@ void PetugasRole::kelolaAntrean() {
     cin >> input;
 
     if (input == "1") {
-        if(antrianHead->kendaraan.getJenisKendaraan() == "Mobil"){
-            if(getJumlahMobil() > 5){
+        string pilihan;
+        cout << "Jenis Kendaraan : ";
+        cin >> pilihan;
+        bool ditemukan = false;
+
+        if(pilihan != "Mobil" && pilihan != "Motor" && pilihan != "Sepeda"){
+            fungsiUmum.clearscreen();
+            cout << "Input tidak valid, masukkan Mobil, Motor atau Sepeda" << endl;
+        }else if(pilihan == "Mobil"){
+            NodeParkir* bantu = antrianHead;
+            //cek apakah ada data mobil diantrean
+            do
+            {
+                if(bantu->kendaraan.getJenisKendaraan() == "Mobil"){
+                    ditemukan = true;
+                }else{}
+                bantu = bantu->next;
+            } while (bantu != antrianHead);
+
+            if (ditemukan == false)
+            {
                 fungsiUmum.clearscreen();
-                cout << "Maaf Parkiran untuk mobil masih penuh" << endl;
-                return;
+                cout << "Tidak ada Mobil di antrean" << endl;
             }else{
-                tambahKendaraan(antrianHead->kendaraan);
-
-                NodeParkir* hapus = antrianHead;
-                if (antrianHead == antrianTail) {
-                antrianHead = nullptr;
-                antrianTail = nullptr;
-                } else {
-                antrianHead = antrianHead->next;
-                antrianHead->prev = antrianTail;
-                antrianTail->next = antrianHead;
+                //cek dulu apakah tersedia atau tidak slot nya di parkiran
+                if(getJumlahMobil() >= 5){
+                    fungsiUmum.clearscreen();
+                    cout << "Maaf Parkiran untuk mobil masih penuh" << endl;
+                    return;
+                }else{
+                    tambahKendaraan(antrianHead->kendaraan);
+    
+                    NodeParkir* hapus = antrianHead;
+                    if (antrianHead == antrianTail) {
+                    antrianHead = nullptr;
+                    antrianTail = nullptr;
+                    } else {
+                    antrianHead = antrianHead->next;
+                    antrianHead->prev = antrianTail;
+                    antrianTail->next = antrianHead;
+                    }
+                    delete hapus;
+    
+                    fungsiUmum.clearscreen();
+                    cout << "Data kendaraan berhasil dimasukkan" << endl;
                 }
-                delete hapus;
-
-                fungsiUmum.clearscreen();
-                cout << "Data kendaraan berhasil dimasukkan" << endl;
             }
-        }else if(antrianHead->kendaraan.getJenisKendaraan() == "Motor"){
-            if(getJumlahMotor() > 30){
+            
+            
+        }else if(pilihan == "Motor"){
+            NodeParkir* bantu = antrianHead;
+            do
+            {
+                if(bantu->kendaraan.getJenisKendaraan() == "Motor"){
+                    ditemukan = true;
+                }else{}
+                bantu = bantu->next;
+            } while (bantu != antrianHead);
+
+            if (ditemukan == false)
+            {
                 fungsiUmum.clearscreen();
-                cout << "Maaf Parkiran untuk motor masih penuh" << endl;
-                return;
+                cout << "Tidak ada Motor di antrean" << endl;
             }else{
-                tambahKendaraan(antrianHead->kendaraan);
-
-                NodeParkir* hapus = antrianHead;
-                if (antrianHead == antrianTail) {
-                antrianHead = nullptr;
-                antrianTail = nullptr;
-                } else {
-                antrianHead = antrianHead->next;
-                antrianHead->prev = antrianTail;
-                antrianTail->next = antrianHead;
+                //cek dulu apakah tersedia atau tidak slot nya di parkiran
+                if(getJumlahMotor() >= 30){
+                    fungsiUmum.clearscreen();
+                    cout << "Maaf Parkiran untuk motor masih penuh" << endl;
+                    return;
+                }else{
+                    tambahKendaraan(antrianHead->kendaraan);
+    
+                    NodeParkir* hapus = antrianHead;
+                    if (antrianHead == antrianTail) {
+                    antrianHead = nullptr;
+                    antrianTail = nullptr;
+                    } else {
+                    antrianHead = antrianHead->next;
+                    antrianHead->prev = antrianTail;
+                    antrianTail->next = antrianHead;
+                    }
+                    delete hapus;
+    
+                    fungsiUmum.clearscreen();
+                    cout << "Data kendaraan berhasil dimasukkan" << endl;
                 }
-                delete hapus;
-
-                fungsiUmum.clearscreen();
-                cout << "Data kendaraan berhasil dimasukkan" << endl;
             }
-        }else if(antrianHead->kendaraan.getJenisKendaraan() == "Sepeda"){
-            if(getJumlahMotor() > 10){
+
+        }else if(pilihan == "Sepeda"){
+            NodeParkir* bantu = antrianHead;
+            do
+            {
+                if(bantu->kendaraan.getJenisKendaraan() == "Sepeda"){
+                    ditemukan = true;
+                }else{}
+                bantu = bantu->next;
+            } while (bantu != antrianHead);
+
+            if (ditemukan == false)
+            {
                 fungsiUmum.clearscreen();
-                cout << "Maaf Parkiran untuk sepeda masih penuh" << endl;
-                return;
+                cout << "Tidak ada Sepeda di antrean" << endl;
             }else{
-                tambahKendaraan(antrianHead->kendaraan);
-
-                NodeParkir* hapus = antrianHead;
-                if (antrianHead == antrianTail) {
-                antrianHead = nullptr;
-                antrianTail = nullptr;
-                } else {
-                antrianHead = antrianHead->next;
-                antrianHead->prev = antrianTail;
-                antrianTail->next = antrianHead;
+                //cek dulu apakah tersedia atau tidak slot nya di parkiran
+                if(getJumlahSepeda() >= 10){
+                    fungsiUmum.clearscreen();
+                    cout << "Maaf Parkiran untuk Sepeda masih penuh" << endl;
+                    return;
+                }else{
+                    tambahKendaraan(antrianHead->kendaraan);
+    
+                    NodeParkir* hapus = antrianHead;
+                    if (antrianHead == antrianTail) {
+                    antrianHead = nullptr;
+                    antrianTail = nullptr;
+                    } else {
+                    antrianHead = antrianHead->next;
+                    antrianHead->prev = antrianTail;
+                    antrianTail->next = antrianHead;
+                    }
+                    delete hapus;
+    
+                    fungsiUmum.clearscreen();
+                    cout << "Data kendaraan berhasil dimasukkan" << endl;
                 }
-                delete hapus;
-
-                fungsiUmum.clearscreen();
-                cout << "Data kendaraan berhasil dimasukkan" << endl;
             }
         }
-        
+ 
     } else if (input == "2") {
         cout << "Masukkan plat nomor : ";
         string plat;
@@ -417,7 +477,7 @@ void PetugasRole::kelolaAntrean() {
         cout << "Input tidak valid" << endl;
     }
 
-    fungsiUmum.clearscreen();
+    //fungsiUmum.clearscreen();
 }
 
 
