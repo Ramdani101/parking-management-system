@@ -17,13 +17,12 @@ void MahasiswaRole::pesanTempat(){
     cin >> jenis;
     cout << "Masukkan waktu masuk : ";
     cin >> waktu;
-    Kendaraan kendaraan(plat,pemilik,jenis,waktu);
+    Kendaraan kendaraan(plat,pemilik,jenis,waktu,"p");
     petugas->tambahKendaraan(kendaraan);
 }
 
 void MahasiswaRole::lihatHistoriMahasiswa(){
-    fungsiUmum.clearscreen();
-    cout << "Sedang tahap Pengembangan" << endl;
+    petugas->liatHistoriPesan();
 }
 
 void MahasiswaRole::displayMenuMahasiswa(){

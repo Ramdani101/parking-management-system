@@ -12,6 +12,8 @@ class NodeParkir {
     Kendaraan kendaraan;
     NodeParkir* next;
     NodeParkir* prev;
+    NodeParkir* nextPesan;
+    NodeParkir* prevPesan;
 
     NodeParkir(Kendaraan kendaraan);
 
