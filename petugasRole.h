@@ -12,6 +12,8 @@ class PetugasRole{
     NodeParkir* historyTail;
     NodeParkir* antrianHead;
     NodeParkir* antrianTail;
+    NodeParkir* historyPesanHead;
+    NodeParkir* historyPesanTail;
     int jumlahMotor,jumlahMobil,jumlahSepeda;
 
     NodeParkir* cariBerdasarkanPlat(string plat);
@@ -27,6 +29,7 @@ class PetugasRole{
     void kelolaAntrean();
     void liatHistori();
     void displayMenuPetugas();
+    void liatHistoriPesan();
     int getJumlahMotor() const;
     int getJumlahMobil() const;
     int getJumlahSepeda() const;

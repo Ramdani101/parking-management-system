@@ -1,10 +1,11 @@
 #include "petugasRole.h"
 #include <iostream>
+#include <conio.h>
 #include "fungsiumum.h"
 using namespace std;
 
 //Constructor
-PetugasRole::PetugasRole() : head(nullptr), tail(nullptr), antrianHead(nullptr), antrianTail(nullptr), jumlahMobil(0), jumlahMotor(0), jumlahSepeda(0) {}
+PetugasRole::PetugasRole() : head(nullptr), tail(nullptr), antrianHead(nullptr), antrianTail(nullptr), historyHead(nullptr), historyTail(nullptr), historyPesanHead(nullptr), historyPesanTail(nullptr), jumlahMobil(0), jumlahMotor(0), jumlahSepeda(0) {}
 //Destructor
 PetugasRole::~PetugasRole() {
     while(head != nullptr) {
@@ -16,6 +17,12 @@ PetugasRole::~PetugasRole() {
     while(antrianHead != nullptr) {
         NodeParkir* hapus = antrianHead;
         antrianHead = antrianHead->next;
+        delete hapus;
+    }
+
+    while(historyHead != nullptr) {
+        NodeParkir* hapus = historyHead;
+        historyHead = historyHead->next;
         delete hapus;
     }
 }
@@ -67,6 +74,26 @@ void PetugasRole::tambahKendaraan(Kendaraan kendaraan) {
                     head->prev = tail;
                 }
                 fungsiUmum.clearscreen();
+                //cek apakah kendaraan ditambahkan dari pesanan mahasiswa
+                
+                if(kendaraan.getStatus() == "p"){
+                    if(historyPesanHead == nullptr) {
+                        historyPesanHead = nodeBaru;
+                        historyPesanTail = nodeBaru;
+                        nodeBaru->nextPesan = historyPesanHead;
+                        nodeBaru->prevPesan = historyPesanTail;
+                    } else {
+                        historyPesanTail->nextPesan = nodeBaru;
+                        nodeBaru->prevPesan = historyPesanTail;
+                        historyPesanTail = nodeBaru;
+                        historyPesanTail->nextPesan = historyPesanHead;
+                        historyPesanHead->prevPesan = historyPesanTail;
+                    }
+                    nodeBaru->kendaraan.setStatus("Berhasil");
+                }else{} 
+
+                
+            
                 cout << "Data berhasil ditambahkan" << endl;
                 setJumlahMobil(getJumlahMobil() + 1);
             }else{
@@ -83,6 +110,25 @@ void PetugasRole::tambahKendaraan(Kendaraan kendaraan) {
                 antrianHead->prev = antrianTail;
                 }
                 fungsiUmum.clearscreen();
+                //cek apakah kendaraan ditambahkan dari pesanan mahasiswa
+                
+                if(kendaraan.getStatus() == "p"){
+                    if(historyPesanHead == nullptr) {
+                        historyPesanHead = nodeBaru;
+                        historyPesanTail = nodeBaru;
+                        nodeBaru->nextPesan = historyPesanHead;
+                        nodeBaru->prevPesan = historyPesanTail;
+                    } else {
+                        historyPesanTail->nextPesan = nodeBaru;
+                        nodeBaru->prevPesan = historyPesanTail;
+                        historyPesanTail = nodeBaru;
+                        historyPesanTail->nextPesan = historyPesanHead;
+                        historyPesanHead->prevPesan = historyPesanTail;
+                    }
+                    nodeBaru->kendaraan.setStatus("Dalam Antrian");
+                }else{}
+                
+               
                 cout << "Parkiran sedang penuh, data kendaraan akan masuk kedalam daftar antrian \n" <<
                 "Antrian akan diproses ketika parkiran kosong" << endl;
             }
@@ -103,6 +149,26 @@ void PetugasRole::tambahKendaraan(Kendaraan kendaraan) {
                 head->prev = tail;
             }
             fungsiUmum.clearscreen();
+            //cek apakah kendaraan ditambahkan dari pesanan mahasiswa
+            
+            if(kendaraan.getStatus() == "p"){
+                if(historyPesanHead == nullptr) {
+                    historyPesanHead = nodeBaru;
+                    historyPesanTail = nodeBaru;
+                    nodeBaru->nextPesan = historyPesanHead;
+                    nodeBaru->prevPesan = historyPesanTail;
+                } else {
+                    historyPesanTail->nextPesan = nodeBaru;
+                    nodeBaru->prevPesan = historyPesanTail;
+                    historyPesanTail = nodeBaru;
+                    historyPesanTail->nextPesan = historyPesanHead;
+                    historyPesanHead->prevPesan = historyPesanTail;
+                }
+                nodeBaru->kendaraan.setStatus("Berhasil");
+            }else{} 
+
+            
+            
             cout << "Data berhasil ditambahkan" << endl;
             setJumlahMotor(getJumlahMotor() + 1);
         }else{
@@ -120,6 +186,26 @@ void PetugasRole::tambahKendaraan(Kendaraan kendaraan) {
             antrianTail->next = antrianHead;
             antrianHead->prev = antrianTail;
             }
+
+            //cek apakah kendaraan ditambahkan dari pesanan mahasiswa
+            
+            if(kendaraan.getStatus() == "p"){
+                if(historyPesanHead == nullptr) {
+                    historyPesanHead = nodeBaru;
+                    historyPesanTail = nodeBaru;
+                    nodeBaru->nextPesan = historyPesanHead;
+                    nodeBaru->prevPesan = historyPesanTail;
+                } else {
+                    historyPesanTail->nextPesan = nodeBaru;
+                    nodeBaru->prevPesan = historyPesanTail;
+                    historyPesanTail = nodeBaru;
+                    historyPesanTail->nextPesan = historyPesanHead;
+                    historyPesanHead->prevPesan = historyPesanTail;
+                }
+                nodeBaru->kendaraan.setStatus("Dalam Antrian");
+            }else{}
+            
+            
             fungsiUmum.clearscreen();
         }
     }else if(kendaraan.getJenisKendaraan() == "Sepeda"){
@@ -139,6 +225,24 @@ void PetugasRole::tambahKendaraan(Kendaraan kendaraan) {
                     head->prev = tail;
                 }
                 fungsiUmum.clearscreen();
+                //cek apakah kendaraan ditambahkan dari pesanan mahasiswa
+                if(kendaraan.getStatus() == "p"){
+                    if(historyPesanHead == nullptr) {
+                        historyPesanHead = nodeBaru;
+                        historyPesanTail = nodeBaru;
+                        nodeBaru->nextPesan = historyPesanHead;
+                        nodeBaru->prevPesan = historyPesanTail;
+                    } else {
+                        historyPesanTail->nextPesan = nodeBaru;
+                        nodeBaru->prevPesan = historyPesanTail;
+                        historyPesanTail = nodeBaru;
+                        historyPesanTail->nextPesan = historyPesanHead;
+                        historyPesanHead->prevPesan = historyPesanTail;
+                    }
+                    nodeBaru->kendaraan.setStatus("Berhasil");
+                }else{}
+                
+
                 cout << "Data berhasil ditambahkan" << endl;
                 setJumlahSepeda(getJumlahSepeda() + 1);
             }else{
@@ -156,6 +260,24 @@ void PetugasRole::tambahKendaraan(Kendaraan kendaraan) {
                 antrianTail->next = antrianHead;
                 antrianHead->prev = antrianTail;
             }
+            //cek apakah kendaraan ditambahkan dari pesanan mahasiswa
+            if(kendaraan.getStatus() == "p"){
+                if(historyPesanHead == nullptr) {
+                    historyPesanHead = nodeBaru;
+                    historyPesanTail = nodeBaru;
+                    nodeBaru->nextPesan = historyPesanHead;
+                    nodeBaru->prevPesan = historyPesanTail;
+                } else {
+                    historyPesanTail->nextPesan = nodeBaru;
+                    nodeBaru->prevPesan = historyPesanTail;
+                    historyPesanTail = nodeBaru;
+                    historyPesanTail->nextPesan = historyPesanHead;
+                    historyPesanHead->prevPesan = historyPesanTail;
+                }
+                nodeBaru->kendaraan.setStatus("Dalam Antrian");
+            }else{}
+            
+            
             fungsiUmum.clearscreen();
         }
     }
@@ -204,8 +326,21 @@ void PetugasRole::hapusKendaraan(string plat) {
                 setJumlahSepeda(getJumlahSepeda() - 1);
             }
 
-            
-            delete hapus;
+            //tambahkan ke history
+            if(historyHead == nullptr) {
+                historyHead = hapus;
+                historyTail = hapus;
+                hapus->next = historyHead;
+                hapus->prev = historyTail;
+            } else {
+                historyTail->next = hapus;
+                hapus->prev = historyTail;
+                historyTail = hapus;
+                historyTail->next = historyHead;
+                historyHead->prev = historyTail;
+            }
+
+            //delete hapus;
             fungsiUmum.clearscreen();
             cout << "Data berhasil dihapus" << endl;
             displayMenuPetugas();
@@ -370,8 +505,9 @@ void PetugasRole::kelolaAntrean() {
                     cout << "Maaf Parkiran untuk mobil masih penuh" << endl;
                     return;
                 }else{
+                    antrianHead->kendaraan.setStatus("Berhasil");
                     tambahKendaraan(antrianHead->kendaraan);
-    
+                    
                     NodeParkir* hapus = antrianHead;
                     if (antrianHead == antrianTail) {
                     antrianHead = nullptr;
@@ -381,7 +517,7 @@ void PetugasRole::kelolaAntrean() {
                     antrianHead->prev = antrianTail;
                     antrianTail->next = antrianHead;
                     }
-                    delete hapus;
+                    //delete hapus;
     
                     fungsiUmum.clearscreen();
                     cout << "Data kendaraan berhasil dimasukkan" << endl;
@@ -421,7 +557,7 @@ void PetugasRole::kelolaAntrean() {
                     antrianHead->prev = antrianTail;
                     antrianTail->next = antrianHead;
                     }
-                    delete hapus;
+                    //delete hapus;
     
                     fungsiUmum.clearscreen();
                     cout << "Data kendaraan berhasil dimasukkan" << endl;
@@ -460,7 +596,7 @@ void PetugasRole::kelolaAntrean() {
                     antrianHead->prev = antrianTail;
                     antrianTail->next = antrianHead;
                     }
-                    delete hapus;
+                    //delete hapus;
     
                     fungsiUmum.clearscreen();
                     cout << "Data kendaraan berhasil dimasukkan" << endl;
@@ -483,7 +619,78 @@ void PetugasRole::kelolaAntrean() {
 
 void PetugasRole::liatHistori(){
     fungsiUmum.clearscreen();
-    cout << "Masih dalam tahap pengembangan \n";
+    char input;
+
+    if (historyHead == nullptr) {
+        cout << "History masih kosong" << endl;
+        return;
+    }
+
+    cout << "===============================" << endl;
+    cout << "------ HISTORY KENDARAAN ------" << endl;
+    cout << "===============================" << endl;
+
+    int i = 0;
+    NodeParkir* bantuHitung = historyHead;
+    //Hitung jumla node
+    do{
+        i++;
+        bantuHitung = bantuHitung->next;
+    }while(bantuHitung != historyHead);
+
+    NodeParkir* bantu = historyTail;
+
+    do {
+        cout << i << "| Plat : " << bantu->kendaraan.getPlatNomor() 
+             << "| Pemilik : " << bantu->kendaraan.getPemilik() 
+             << "| Jenis : " << bantu->kendaraan.getJenisKendaraan() << endl;
+        bantu = bantu->prev;
+        i--;
+    } while (bantu != historyTail);
+
+    cout << "===============================" << endl;
+    cout << "Tekan apa saja untuk kembali" << endl;
+    input = getch();
+    
+    fungsiUmum.clearscreen();
+}
+
+void PetugasRole::liatHistoriPesan(){
+    fungsiUmum.clearscreen();
+    char input;
+
+    if (historyPesanHead == nullptr) {
+        cout << "Pesanan masih kosong" << endl;
+        return;
+    }
+
+    cout << "===============================" << endl;
+    cout << "----- HISTORI PARKIR ANDA -----" << endl;
+    cout << "===============================" << endl;
+
+    int i = 0;
+    NodeParkir* bantuHitung = historyPesanHead;
+    //Hitung jumla node
+    do{
+        i++;
+        bantuHitung = bantuHitung->nextPesan;
+    }while(bantuHitung != historyPesanHead);
+
+    NodeParkir* bantu = historyPesanTail;
+
+    do {
+        cout << i << "| Plat : " << bantu->kendaraan.getPlatNomor() 
+             << "| Pemilik : " << bantu->kendaraan.getPemilik() 
+             << "| Status : " << bantu->kendaraan.getStatus() << endl;
+        bantu = bantu->prevPesan;
+        i--;
+    } while (bantu != historyPesanTail);
+
+    cout << "===============================" << endl;
+    cout << "Tekan apa saja untuk kembali" << endl;
+    input = getch();
+    
+    fungsiUmum.clearscreen();
 }
 
 void PetugasRole::displayMenuPetugas() {
