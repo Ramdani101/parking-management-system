@@ -8,6 +8,9 @@ class FungsiUmum{
     public:
     FungsiUmum();
     void clearscreen();
+    void setColor(int color);
+    void hideCursor();
+    void showCursor();
 };
 
 extern FungsiUmum fungsiUmum;
