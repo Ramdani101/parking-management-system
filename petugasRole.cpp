@@ -693,58 +693,99 @@ void PetugasRole::liatHistoriPesan(){
     fungsiUmum.clearscreen();
 }
 
-void PetugasRole::displayMenuPetugas() {
-    string input;
-    do {
-        //fungsiUmum.clearscreen();
+
+void PetugasRole::displayMenuPetugas(){
+    fungsiUmum.hideCursor();
+    int pilihanTerkini = 0;
+    int key;
+    const int PILIHAN_MENU = 6;
+    const string menu[PILIHAN_MENU] = {
+        "1. Tambah Kendaraan",
+        "2. Lihat Kendaraan di Parkiran",
+        "3. Hapus Kendaraan",
+        "4. Kelola antrean kendaraan",
+        "5. Lihat histori kendaraan keluar",
+        "6. Kembali"
+    };
+
+    while (true) {
+        fungsiUmum.clearscreen();
         cout << "==========================" << endl;
         cout << "--- DASHBOARD  PETUGAS ---" << endl;
         cout << "==========================" << endl;
-        cout << "1. Tambah Kendaraan" << endl;
-        cout << "2. Lihat Kendaraan di Parkiran" << endl;
-        cout << "3. Hapus Kendaraan" << endl;
-        cout << "4. Kelola antrean kendaraan" << endl;
-        cout << "5. Lihat histori kendaraan keluar" << endl;
-        cout << "6. Kembali" << endl;
-        cout << "Pilih : ";
-        cin >> input;
-        if(input == "1") {
-            string plat, pemilik, jenis, waktu;
-            cout << "Masukkan plat nomor : ";
-            cin >> plat;
-            cout << "Masukkan nama pemilik : ";
-            cin >> pemilik;
-            cout << "Masukkan jenis kendaraan : ";
-            cin >> jenis;
-            cout << "Masukkan waktu masuk : ";
-            cin >> waktu;
-            Kendaraan kendaraan(plat, pemilik, jenis, waktu);
-            tambahKendaraan(kendaraan);
-            displayMenuPetugas();
-        } else if(input == "2") {
-            lihatKendaraan();
-            //fungsiUmum.clearscreen();
-        } else if(input == "3") {
-            if(head == nullptr){
-                fungsiUmum.clearscreen();
-                cout << "Parkiran Masih Kosong" << endl;
+
+        // Tampilkan menu dengan highlight
+        for (int i = 0; i < PILIHAN_MENU; i++) {
+            if (i == pilihanTerkini) {
+                fungsiUmum.setColor(0xEF); // Warna lain untuk pilihan yang aktif
+            } else {
+                fungsiUmum.setColor(7); // Warna default
+            }
+            cout << menu[i] << endl;
+        }
+        fungsiUmum.setColor(7); // Kembalikan ke warna default
+
+        
+        key = getch();
+        if (key == 224 || key == 0) { // Handle arrow keys
+            key = getch();
+            switch (key) {
+                case 72: // Panah atas
+                    pilihanTerkini = (pilihanTerkini > 0) ? pilihanTerkini - 1 : PILIHAN_MENU - 1;
+                    break;
+                case 80: // Panah bawah
+                    pilihanTerkini = (pilihanTerkini < PILIHAN_MENU - 1) ? pilihanTerkini + 1 : 0;
+                    break;
+            }
+        } else if (key == 13) { // Tombol Enter
+            switch (pilihanTerkini) {
+                case 0: // Tambah Kendaraan
+                    {
+                        string plat, pemilik, jenis, waktu;
+                        cout << "Masukkan plat nomor : ";
+                        cin >> plat;
+                        cout << "Masukkan nama pemilik : ";
+                        cin >> pemilik;
+                        cout << "Masukkan jenis kendaraan : ";
+                        cin >> jenis;
+                        cout << "Masukkan waktu masuk : ";
+                        cin >> waktu;
+                        Kendaraan kendaraan(plat, pemilik, jenis, waktu);
+                        tambahKendaraan(kendaraan);
+                    }
+                    break;
+                case 1: // Lihat Kendaraan
+                    lihatKendaraan();
+                    break;
+                case 2: // Hapus Kendaraan
+                    if (head == nullptr) {
+                        fungsiUmum.clearscreen();
+                        cout << "Parkiran Masih Kosong" << endl;
+                    } else {
+                        string plat;
+                        cout << "Masukkan plat nomor : ";
+                        cin >> plat;
+                        hapusKendaraan(plat);
+                    }
+                    break;
+                case 3: // Kelola Antrean
+                    kelolaAntrean();
+                    break;
+                case 4: // Lihat Histori
+                    liatHistori();
+                    break;
+                case 5: // Kembali
+                    return;
+            }
+            if(pilihanTerkini == 5){
+                cout << "Apakah anda yakin mau kembali?";
+                getch();
             }else{
-                string plat;
-                cout << "Masukkan plat nomor : ";
-                cin >> plat;
-                hapusKendaraan(plat);
-                fungsiUmum.clearscreen();
+                cout << "Tekan apa saja untuk kembali";
+                getch();
             }
             
-        } else if(input == "4") {
-            kelolaAntrean();
-            displayMenuPetugas();
-        } else if(input == "5") {
-            liatHistori();
-            displayMenuPetugas();
-        } else if(input != "6"){
-            cout << "Input tidak valid" << endl;
-            displayMenuPetugas();
         }
-    } while(input != "6");
+    }
+    
 }
